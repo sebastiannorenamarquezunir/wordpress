@@ -43,7 +43,7 @@ file '/usr/local/bin/wp' do
    mode '777'
 end
 
-execute "1" do
+execute "create database" do
    command "sudo mysql --user=root --password=#{node['wordpress']['db']['password']} --execute=\"create database IF NOT EXISTS #{node['wordpress']['db']['database']};CREATE USER IF NOT EXISTS #{node['wordpress']['db']['user']}@localhost;SET PASSWORD FOR #{node['wordpress']['db']['user']}@localhost = \'#{node['wordpress']['db']['password']}\';GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON #{node['wordpress']['db']['database']}.* TO #{node['wordpress']['db']['user']}@localhost;FLUSH PRIVILEGES;\""
 end
 
