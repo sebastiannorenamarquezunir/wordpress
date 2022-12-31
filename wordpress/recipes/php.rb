@@ -3,9 +3,19 @@
 # Recipe:: php
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
-package "apache2" do
+# install php.
+package "php" do
     action :install
 end
-service "apache2" do
-    action [:enable, :start]
+package "php-pear" do
+    action :install
+end
+package 'libapache2-mod-php' do
+  action :install
+  notifies :restart, "service[apache2]"
+end
+# Install php-mysql.
+package 'php-mysql' do
+    action :install
+    notifies :restart, "service[apache2]"
 end

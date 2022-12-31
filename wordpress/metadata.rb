@@ -5,8 +5,7 @@ license 'All Rights Reserved'
 description 'Installs/Configures wordpress'
 version '0.1.0'
 chef_version '>= 16.0'
-depends 'mysql', '~> 8.5.1'
-
+cookbook 'mysql', '>= 5.3.6'
 attribute "wordpress/version",
   :display_name => "Wordpress download version",
   :description => "Version of Wordpress to download from the Wordpress site.",
