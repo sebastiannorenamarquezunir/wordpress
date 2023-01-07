@@ -10,6 +10,14 @@ describe port(3306) do
   its('protocols') { should include 'tcp' }
 end
 
-describe package('mysql-server') do
-  it { should be_installed }
+if os[:family] == 'ubuntu'
+  describe package('mysql-server') do
+    it { should be_installed }
+  end
+end
+
+if os[:family] == 'centos'
+  describe package('mariadb') do
+    it { should be_installed }
+  end
 end

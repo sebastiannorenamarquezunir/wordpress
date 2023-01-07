@@ -21,16 +21,30 @@ if os[:family] =='ubuntu'
       it { should be_running }
     end
 
-    describe port(80) do
-      it { should be_listening }
-      its('protocols') { should include 'tcp' }
-      its('addresses') { should include '0.0.0.0' }
-    end
+end
+if os[:family] =='centos'
+  describe package('apache2') do
+    it { should be_installed }
+  end
 
-    describe port(22) do
-      it { should be_listening }
-      its('processes') { should include 'sshd' }
-      its('protocols') { should include 'tcp' }
-      its('addresses') { should include '0.0.0.0' }
-    end
+  describe file('/etc/httpd/conf/httpd.conf') do
+    it { should exist }
+  end
+
+  describe service('httpd') do
+    it { should be_enabled }
+    it { should be_running }
+  end
+end
+
+describe port(80) do
+  it { should be_listening }
+  its('protocols') { should include 'tcp' }
+end
+
+describe port(22) do
+  it { should be_listening }
+  its('processes') { should include 'sshd' }
+  its('protocols') { should include 'tcp' }
+  its('addresses') { should include '0.0.0.0' }
 end

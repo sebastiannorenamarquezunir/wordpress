@@ -1,0 +1,11 @@
+UPDATE mysql.user SET Password=PASSWORD('<%= node['wordpress']['db']['password'] %>') WHERE User='root';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+CREATE DATABASE <%= node['wordpress']['db']['database'] %>;
+GRANT ALL PRIVILEGES ON <%= node['wordpress']['db']['database'] %>.*
+TO "<%= node['wordpress']['db']['user'] %>"@"localhost"
+IDENTIFIED BY "<%= node['wordpress']['db']['password'] %>";
+FLUSH PRIVILEGES;

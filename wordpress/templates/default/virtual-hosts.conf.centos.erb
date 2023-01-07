@@ -1,0 +1,23 @@
+Listen 80
+Include conf.modules.d/*.conf
+User apache
+Group apache
+<IfModule mime_module>
+    TypesConfig /etc/mime.types
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+    AddType text/html .shtml
+    AddOutputFilter INCLUDES .shtml
+</IfModule>
+ 
+<VirtualHost *:80>
+  ServerAdmin webmaster@localhost
+  DocumentRoot <%= node['wordpress']['dir']%>
+
+  <Directory <%= @node['wordpress']['dir']%>>
+    Require all granted
+  </Directory>
+
+  ErrorLog <%= node['wordpress']['dir']%>/error.log
+  CustomLog <%= node['wordpress']['dir']%>/access.log combined
+</VirtualHost>
