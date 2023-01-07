@@ -26,4 +26,61 @@ describe 'wordpress::php' do
       expect { chef_run }.to_not raise_error
     end
   end
+
+  context 'Pakage libapache2-mod-php is present' do
+    platform 'centos', '8'
+    it 'install a package libapache2-mod-php' do
+      expect(chef_run).to install_package('libapache2-mod-php')
+    end
+  end
+
+  context 'Pakage libapache2-mod-php is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package libapache2-mod-php' do
+      expect(chef_run).to install_package('libapache2-mod-php')
+    end
+  end
+
+  context 'Pakage php is present' do
+    platform 'centos', '8'
+    it 'install a package php' do
+      expect(chef_run).to install_package('php')
+    end
+  end
+
+  context 'Pakage php is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package php' do
+      expect(chef_run).to install_package('php')
+    end
+  end
+  
+  context 'Pakage php-pear is present' do
+    platform 'centos', '8'
+    it 'install a package php-pear' do
+      expect(chef_run).to install_package('php-pear')
+    end
+  end
+
+  context 'Pakage php-pear is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package php-pear' do
+      expect(chef_run).to install_package('php-pear')
+    end
+  end
+
+  context 'Pakage php-mysql is present' do
+    platform 'centos', '8'
+    it 'install a package php-mysql' do
+      expect(chef_run).to install_package('php-mysql')
+    end
+  end
+
+  context 'Pakage php-mysql is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package php-mysql' do
+      expect(chef_run).to install_package('php-mysql')
+    end
+  end
+
 end

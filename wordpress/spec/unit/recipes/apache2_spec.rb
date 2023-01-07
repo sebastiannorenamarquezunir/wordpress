@@ -28,12 +28,14 @@ describe 'wordpress::apache2' do
   end
 
   context 'Pakage apache2 is present' do
+    platform 'centos', '8'
     it 'install a package apache2' do
       expect(chef_run).to install_package('apache2')
     end
   end
 
   context 'Configuration files' do
+    platform 'centos', '8'
     it 'Delete 000-default.conf file' do
       expect(chef_run).to delete_file('/etc/apache2/sites-enabled/000-default.conf')
     end
@@ -43,6 +45,32 @@ describe 'wordpress::apache2' do
   end
 
   context 'Apache2 available' do
+    platform 'centos', '8'
+    it 'Apache2 is running' do
+      expect(chef_run).to start_service('apache2')
+    end
+  end
+
+
+  context 'Pakage apache2 is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package apache2' do
+      expect(chef_run).to install_package('apache2')
+    end
+  end
+
+  context 'Configuration files' do
+    platform 'ubuntu', '20.04'
+    it 'Delete 000-default.conf file' do
+      expect(chef_run).to delete_file('/etc/apache2/sites-enabled/000-default.conf')
+    end
+    it 'creates a template with the default action' do
+      expect(chef_run).to create_template('/etc/apache2/sites-available/vagrant.conf')
+    end
+  end
+
+  context 'Apache2 available' do
+    platform 'ubuntu', '20.04'
     it 'Apache2 is running' do
       expect(chef_run).to start_service('apache2')
     end

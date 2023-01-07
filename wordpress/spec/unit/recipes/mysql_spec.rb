@@ -26,4 +26,19 @@ describe 'wordpress::mysql' do
       expect { chef_run }.to_not raise_error
     end
   end
+
+  context 'Pakage mysql-server is present' do
+    platform 'centos', '8'
+    it 'install a package mysql-server' do
+      expect(chef_run).to install_package('mysql-server')
+    end
+  end
+
+  context 'Pakage mysql-server is present' do
+    platform 'ubuntu', '20.04'
+    it 'install a package mysql-server' do
+      expect(chef_run).to install_package('mysql-server')
+    end
+  end
+
 end
